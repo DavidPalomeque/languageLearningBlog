@@ -1,12 +1,14 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <br>
-    <h2 style="color: #1266f1;">New Post</h2>
     <hr>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p}}
-        <button type="submit" class="save btn btn-success" style="float: right;">Save as Draft</button>
+        {% if request.get_full_path == "/post/new/" %}
+            <button type="submit" class="save btn btn-success" style="float: right;">Save as Draft</button>
+        {% else %}
+            <button type="submit" class="save btn btn-success" style="float: right;">Update</button>
+        {% endif %}
     </form>
 
     <style>

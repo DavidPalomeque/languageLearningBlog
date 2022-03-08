@@ -5,6 +5,9 @@
     {% for post in posts %}
         <article>
             <hr>
+            <a href="{% url 'post_edit' pk=post.pk %}" style="float: right;">
+                Editar Post
+            </a>
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p>{{ post.text }}</p>
             <time>published: {{ post.published_date }}</time>
