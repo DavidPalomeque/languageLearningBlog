@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <br>
+    <h2 style="color: #1266f1;">New Post</h2>
+    <hr>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit" class="save btn btn-success" style="float: right;">Save as Draft</button>
+    </form>
+
+    <style>
+        form p label {
+            width: 100%;
+            font-weight:400;
+            font-size: 1.5em;
+            color: #1266f1;
+        }
+        form p input {
+            width: 80%;
+        }
+        form p textarea {
+            width: 80%;
+        }
+    </style>
+{% endblock %}
