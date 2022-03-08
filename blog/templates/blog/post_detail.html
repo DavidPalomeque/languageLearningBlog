@@ -5,12 +5,22 @@
     <article>
         <hr>
         {% if user.is_authenticated %}
-            <a href="{% url 'post_edit' pk=post.pk %}" style="float: right;">
-                Editar Post
+            <a href="{% url 'post_delete' pk=post.pk %}" style="float: right;margin:0px 10px;">
+                Delete Post
             </a>
+            <a href="{% url 'post_edit' pk=post.pk %}" style="float: right;margin:0px 10px;">
+                Edit Post
+            </a>
+            {% if post.published_date == null %}
+                <a href="{% url 'draft_publish' pk=post.pk %}" style="float: right;margin:0px 10px;">
+                    Publicar
+                </a>            
+            {% endif %}
         {% endif %}
         <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
         <p>{{ post.text|linebreaks }}</p>
-        <time>published: {{ post.published_date }}</time>
+        {% if post.published_date %}
+            <time>published: {{ post.published_date }}</time>
+        {% endif %}
     </article>
 {% endblock %}

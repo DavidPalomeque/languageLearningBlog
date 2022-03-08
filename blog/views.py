@@ -45,3 +45,20 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+
+def draft_list(request):
+    drafts = Post.objects.filter(published_date__isnull=True).order_by('-created_date')
+    return render(request, 'blog/draft_list.html', {'drafts': drafts})
+
+
+def draft_publish(request, pk):
+    draft = get_object_or_404(Post, pk=pk)
+    draft.publish()
+    return redirect('post_detail', pk=pk)
+
+
+def post_delete(request, pk):
+    draft = get_object_or_404(Post, pk=pk)
+    draft.delete()
+    return redirect('post_list')

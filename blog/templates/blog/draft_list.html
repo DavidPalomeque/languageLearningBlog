@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+    {% for draft in drafts %}
+        <article>
+            <hr>
+            <h2><a href="{% url 'post_detail' pk=draft.pk %}">{{ draft.title }}</a></h2>
+            <p>{{ draft.text|truncatewords:80 }}</p>
+        </article>
+    {% endfor %}
+{% endblock %}
