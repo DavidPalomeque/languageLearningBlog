@@ -2,11 +2,21 @@
 
 
 {% block content %}
-    {% for draft in drafts %}
-        <article>
-            <hr>
-            <h2><a href="{% url 'post_detail' pk=draft.pk %}">{{ draft.title }}</a></h2>
-            <p>{{ draft.text|truncatewords:80 }}</p>
+    {% if drafts.count > 0 %}
+        {% for draft in drafts %}
+            <article>
+                <hr>
+                <h2><a href="{% url 'post_detail' pk=draft.pk %}">{{ draft.title }}</a></h2>
+                <p>{{ draft.text|truncatewords:80 }}</p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <hr>
+        <article style="text-align: center;margin-top:20%;">
+            <h3>There is no drafts to show. Add a new one!</h3>
+            {% if user.is_authenticated %}
+                <a href="{% url 'post_new' %}">New Post</a>
+            {% endif %}
         </article>
-    {% endfor %}
+    {% endif %}
 {% endblock %}
