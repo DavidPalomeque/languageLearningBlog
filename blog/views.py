@@ -68,3 +68,7 @@ def post_delete(request, pk):
     draft = get_object_or_404(Post, pk=pk)
     draft.delete()
     return redirect('post_list')
+
+
+def custom_error_404(request, exception):
+    return render(request, 'customized_errors/error_404.html')
