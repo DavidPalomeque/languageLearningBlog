@@ -20,3 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
 ]
+
+# Custom error templates
+handler404 = 'blog.views.custom_error_404'
