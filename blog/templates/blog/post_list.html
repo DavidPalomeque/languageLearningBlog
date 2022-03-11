@@ -7,7 +7,8 @@
             <hr>
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p>{{ post.text|truncatewords:80 }}</p>
-            <time>published: {{ post.published_date }}</time>
+            <span>Comments: {{ post.comments.count }}</span><br>
+            <time>{{ post.published_date }}</time>
         </article>
     {% endfor %}
 {% endblock %}

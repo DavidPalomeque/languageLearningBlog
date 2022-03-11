@@ -23,4 +23,49 @@
             <time>published: {{ post.published_date }}</time>
         {% endif %}
     </article>
+
+    {% if post.published_date %}
+    
+        <hr>
+
+        {% if user.is_authenticated %}
+            <h5>Your comment</h5>
+            <form method="POST" class="post-form">{% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-secondary">Add</button>
+            </form>
+        {% else %}
+            <h5>Want to join the discussion? <a href="/"><b>Just Login!</b></a></h5>
+        {% endif %}
+
+        <hr>
+
+        {% if post.comments.all %}
+            {% for comment in post.comments.all %}
+                <div class="comment">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'comment_remove' pk=comment.pk %}" style="float: right;">Remove comment</a>
+                    {% endif %}
+                    <strong>{{ comment.author }}</strong>
+                    <p>{{ comment.text|linebreaks }}</p>
+                    <div class="date">{{ comment.created_date }}</div>
+                </div>
+                <br>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No comments here yet</p>
+        {% endif %}
+        
+    {% endif %}
+
+    <style>
+        form p label {
+            display: none;
+        }
+        form p textarea {
+            width: 80%;
+        }
+    </style>
+
 {% endblock %}
